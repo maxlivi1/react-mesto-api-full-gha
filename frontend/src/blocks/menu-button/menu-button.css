@@ -1,0 +1,43 @@
+.menu-button {
+  margin: 0 0 0 auto;
+  padding: 0;
+  box-sizing: border-box;
+  display: none;
+  position: relative;
+  background-color: #fff;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  width: 24px;
+  height: 3px;
+}
+
+.menu-button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: -9px;
+  background-color: #fff;
+  width: 24px;
+  height: 3px;
+}
+
+.menu-button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -9px;
+  background-color: #fff;
+  width: 24px;
+  height: 3px;
+}
+
+.menu-button:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 550px) {
+  .menu-button {
+    display: block;
+  }
+}

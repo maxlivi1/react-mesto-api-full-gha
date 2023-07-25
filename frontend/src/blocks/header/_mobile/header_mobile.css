@@ -1,0 +1,7 @@
+@media (max-width: 550px) {
+  .header_mobile {
+    margin: 0;
+    padding: 27px 30px 31.6px 30px;
+    border-top: 1px solid rgba(84, 84, 84, 0.7);
+  }
+}

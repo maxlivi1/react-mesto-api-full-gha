@@ -1,0 +1,12 @@
+.navigation-panel_visible {
+  padding: 40px;
+  height: auto;
+  opacity: 1;
+  visibility: visible;
+}
+
+@media (min-width: 550px) {
+  .navigation-panel_visible {
+    display: none;
+  }
+}

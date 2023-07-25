@@ -1,0 +1,13 @@
+
+@media (max-width: 425px) {
+  .action-button_mobile {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}
+
+@media (min-width: 550px) {
+  .action-button_mobile {
+    display: flex;
+  }
+}

@@ -1,0 +1,22 @@
+.place__btn-delete {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 18px;
+  height: 19px;
+  /* display: none; */
+
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  background-image: url(../../../images/svg/trash.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+  border: 0;
+}
+
+.place__btn-delete:hover {
+  opacity: .6;
+}

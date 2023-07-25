@@ -1,0 +1,14 @@
+.navigation-panel_mobile {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 18px;
+  visibility: hidden;
+  opacity: 0;
+  padding: 0;
+  height: 0;
+  overflow: hidden;
+  transition: height .5s ease, padding .5s ease, opacity 1s ease,
+    visibility 1s ease;
+}

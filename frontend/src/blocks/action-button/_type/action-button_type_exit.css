@@ -1,0 +1,5 @@
+@media (max-width: 550px) {
+  .action-button_type_exit {
+    display: none;
+  }
+}

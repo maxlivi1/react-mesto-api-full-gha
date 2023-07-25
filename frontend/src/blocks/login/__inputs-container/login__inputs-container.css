@@ -1,0 +1,18 @@
+.login__inputs-container {
+  margin: 50px 0 216px 0;
+  padding: 0;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  outline: none;
+  border: none;
+
+  transition: margin 1s ease;
+}
+
+@media (max-width: 425px) {
+  .login__inputs-container {
+    margin: 40px 0 173px 0;
+  }
+}

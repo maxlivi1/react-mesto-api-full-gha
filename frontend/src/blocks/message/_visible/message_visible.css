@@ -1,0 +1,13 @@
+.message_visible {
+  visibility: visible;
+  opacity: 1;
+  left: 25px;
+}
+
+@media (max-width: 425px) {
+  .message_visible {
+    left: 50%;
+    transform: translate(-50%);
+    bottom: 25px;
+  }
+}

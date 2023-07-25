@@ -1,0 +1,4 @@
+.message_type_error {
+  box-shadow: 0 0 0 2px rgb(116, 44, 44);
+  color: rgb(231, 64, 64);
+}

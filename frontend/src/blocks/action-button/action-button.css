@@ -1,0 +1,29 @@
+.action-button {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  background-color: transparent;
+  outline: none;
+  border: none;
+  cursor: pointer;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: right;
+  color: #fff;
+
+  transition: opacity 0.5s ease-in;
+}
+
+.action-button:hover {
+  opacity: 0.6;
+}
+
+@media (max-width: 425px) {
+  .action-button {
+    font-size: 14px;
+    line-height: 17px;
+  }
+}

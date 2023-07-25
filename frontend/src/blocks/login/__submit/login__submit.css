@@ -1,0 +1,35 @@
+.login__submit {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+
+  height: 50px;
+  background-color: #fff;
+  outline: none;
+  border: none;
+  border-radius: 2px;
+
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 22px;
+  text-align: center;
+  color: #000;
+  cursor: pointer;
+  transition:
+    opacity .5s ease-in,
+    font-size 1s ease,
+    line-height 1s ease,
+    height 1s ease;
+}
+
+.login__submit:hover {
+  opacity: .85;
+}
+
+@media (max-width: 425px) {
+  .login__submit {
+    font-size: 16px;
+    line-height: 19px;
+    height: 46px;
+  }
+}

@@ -1,0 +1,10 @@
+.popup__message-icon {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 120px;
+  height: 120px;
+  background-color: transparent;
+  background-position: center;
+  background-repeat: no-repeat;
+}

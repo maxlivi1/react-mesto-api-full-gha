@@ -1,0 +1,8 @@
+.place__photo-link {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  width: 282px;
+  height: 282px;
+  cursor: pointer;
+}
