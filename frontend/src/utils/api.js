@@ -3,7 +3,7 @@ import { apiOptions } from "./constants";
 class Api {
   constructor(options) {
     this._options = options;
-    this._baseUrl = "https://mesto.nomoreparties.co/v1/cohort-64";
+    this._baseUrl = options.baseUrl.base;
   }
 
   _checkResponse = (response) => {
@@ -14,21 +14,22 @@ class Api {
   };
 
   _request(endpoint, requestOptions) {
-    return fetch(`${this._baseUrl}${endpoint}`, requestOptions).then(
+    return fetch(`${this._baseUrl}${endpoint}`, { ...requestOptions, credentials: 'include' }).then(
       this._checkResponse
     );
   }
 
   getInitialPlaces() {
     return this._request(this._options.requestTo.places, {
-      headers: this._options.headers,
+      headers: this._options.headers.base,
+      credentials: 'include',
     });
   }
 
   createPlace({ placeName, imageUrl }) {
     return this._request(this._options.requestTo.places, {
       method: "POST",
-      headers: this._options.headers,
+      headers: this._options.headers.base,
       body: JSON.stringify({ name: placeName, link: imageUrl }),
     });
   }
@@ -36,20 +37,21 @@ class Api {
   deletePlace(placeId) {
     return this._request(`${this._options.requestTo.places}/${placeId}`, {
       method: "DELETE",
-      headers: this._options.headers,
+      headers: this._options.headers.base,
     });
   }
 
   getUser() {
     return this._request(this._options.requestTo.user, {
-      headers: this._options.headers,
+      headers: this._options.headers.base,
+      credentials: 'include',
     });
   }
 
   updateUserInfo({ newName, newInfo }) {
     return this._request(this._options.requestTo.user, {
       method: "PATCH",
-      headers: this._options.headers,
+      headers: this._options.headers.base,
       body: JSON.stringify({ name: newName, about: newInfo }),
     });
   }
@@ -57,7 +59,7 @@ class Api {
   updateUserAvatar({ newAvatar }) {
     return this._request(this._options.requestTo.userAvatar, {
       method: "PATCH",
-      headers: this._options.headers,
+      headers: this._options.headers.base,
       body: JSON.stringify({ avatar: newAvatar }),
     });
   }
@@ -67,7 +69,7 @@ class Api {
       `${this._options.requestTo.places}/${placeId}${this._options.requestTo.likes}`,
       {
         method: "PUT",
-        headers: this._options.headers,
+        headers: this._options.headers.base,
       }
     );
   }
@@ -77,7 +79,7 @@ class Api {
       `${this._options.requestTo.places}/${placeId}${this._options.requestTo.likes}`,
       {
         method: "DELETE",
-        headers: this._options.headers,
+        headers: this._options.headers.base,
       }
     );
   }

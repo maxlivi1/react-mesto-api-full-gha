@@ -84,9 +84,8 @@ function App() {
   };
 
   const getAppData = () => {
-    Promise.all([api.getUser(), api.getInitialPlaces()])
-      .then(([userData, placesData]) => {
-        setCurrentUser((prev) => ({ ...prev, ...userData }));
+    api.getInitialPlaces()
+      .then((placesData) => {
         setCards((prev) => [...prev, ...placesData]);
         showMessage({
           text: "Данные с сервера успешно загружены",
@@ -102,20 +101,18 @@ function App() {
   };
 
   const checkToken = () => {
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      authApi
-        .checkToken(token)
-        .then((resData) => {
-          setUserEmail(resData.data.email);
+    authApi
+        .checkToken()
+        .then((userData) => {
+          setCurrentUser((prev) => ({ ...prev, ...userData }));
+          setUserEmail(userData.email);
           setLoggedIn(true);
           navigate(routes.main, { replace: true });
         })
         .catch((error) => {
           console.log(error);
         });
-    }
+
   };
 
   const closeAllPopups = () => {
@@ -279,7 +276,7 @@ function App() {
   }
 
   function handleExit() {
-    localStorage.removeItem("token");
+    // localStorage.removeItem("token");
     setLoggedIn(false);
     setCards([]);
     setIsOpenUserInfo(false);

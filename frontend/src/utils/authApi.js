@@ -1,9 +1,9 @@
-import { authApiOptions as authOptions } from "./constants";
+import { apiOptions } from "./constants";
 
 class AuthApi {
   constructor(options) {
     this._options = options;
-    this._baseUrl = "https://auth.nomoreparties.co";
+    this._baseUrl = options.baseUrl.auth;
   }
 
   _checkResponse = (response) => {
@@ -14,7 +14,7 @@ class AuthApi {
   };
 
   _request(endpoint, requestOptions) {
-    return fetch(`${this._baseUrl}${endpoint}`, requestOptions).then(
+    return fetch(`${this._baseUrl}${endpoint}`, { ...requestOptions, credentials: 'include' }).then(
       this._checkResponse
     );
   }
@@ -22,7 +22,7 @@ class AuthApi {
   register({ email, password }) {
     return this._request(this._options.requestTo.registration, {
       method: "POST",
-      headers: this._options.headers,
+      headers: this._options.headers.registration,
       body: JSON.stringify({ password, email }),
     });
   }
@@ -30,17 +30,16 @@ class AuthApi {
   auth({ email, password }) {
     return this._request(this._options.requestTo.auth, {
       method: "POST",
-      headers: this._options.headers,
+      headers: this._options.headers.registration,
       body: JSON.stringify({ password, email }),
     });
   }
 
-  checkToken(token) {
-    return this._request(this._options.requestTo.checkToken, {
-      method: "GET",
-      headers: { ...this._options.headers, Authorization: `Bearer ${token}` },
+  checkToken() {
+    return this._request(this._options.requestTo.user, {
+      headers: this._options.headers.base,
     });
   }
 }
 
-export const authApi = new AuthApi(authOptions);
+export const authApi = new AuthApi(apiOptions);

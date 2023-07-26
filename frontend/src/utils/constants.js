@@ -18,25 +18,24 @@ export const validatorConfig = {
 
 export const apiOptions = {
   headers: {
-    authorization: "c6eeac48-21b1-4b11-8e1a-276b18a235ea",
-    "Content-Type": "application/json",
+    base: {
+      "Content-Type": "application/json",
+    },
+    registration: {
+      "Content-Type": "application/json",
+    },
   },
-  requestTo: {
-    user: "/users/me",
-    userAvatar: "/users/me/avatar",
-    places: "/cards",
-    likes: "/likes",
-  },
-};
-
-export const authApiOptions = {
-  headers: {
-    "Content-Type": "application/json",
+  baseUrl: {
+    base: "http://localhost:3001",
+    auth: "http://localhost:3001",
   },
   requestTo: {
     registration: "/signup",
     auth: "/signin",
-    checkToken: "/users/me",
+    user: "/users/me",
+    userAvatar: "/users/me/avatar",
+    places: "/cards",
+    likes: "/likes",
   },
 };
 
@@ -47,7 +46,7 @@ export const messageType = {
 };
 
 export const routes = {
-  main: '/',
-  registration: '/sign-up',
-  entrance: '/sign-in'
-}
+  main: "/",
+  registration: "/sign-up",
+  entrance: "/sign-in",
+};
