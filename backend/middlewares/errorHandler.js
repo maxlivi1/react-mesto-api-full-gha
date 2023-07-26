@@ -2,7 +2,6 @@ const { sendError } = require('../errors/sendError');
 const { STATUS_CODES, ERRORS } = require('../utils/constants');
 
 const errorHandler = (err, req, res, next) => {
-  // console.log('Вход в errorHandler', err.code, err.statusCode, err.name);
   const { statusCode = 500 } = err;
 
   if (err.code === 11000) {
