@@ -121,7 +121,6 @@ const updateUserAvatar = (req, res, next) => {
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError
         || err instanceof mongoose.Error.ValidationError) {
-        // console.log(err.message);
         throw AppError(ERRORS.BAD_USER_AVATAR_REQUEST_ERROR.name, STATUS_CODES.BAD_REQUEST_ERROR);
       }
       next(err);

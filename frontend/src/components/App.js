@@ -46,12 +46,10 @@ function App() {
   const navigate = useNavigate();
 
   const showMessage = ({ text, type }) => {
-    console.log("showMessage");
     setMessage(text);
     setMessageType(type);
     setIsMessagePopupOpen(true);
     setTimeout(() => {
-      console.log("timeout / showMessage");
       setIsMessagePopupOpen(false);
     }, 5000);
   };
@@ -125,7 +123,6 @@ function App() {
   };
 
   const handleUpdateUser = ({ name, about }) => {
-    console.log("App / handleUpdateUser");
     if (
       !name.trim() ||
       !about.trim() ||
@@ -154,13 +151,11 @@ function App() {
   };
 
   const handleUpdateUserAvatar = ({ avatar }) => {
-    console.log("App / handleUpdateUserAvatar");
     if (!avatar.trim()) return null;
     setIsLoading(true);
     api
       .updateUserAvatar({ newAvatar: avatar.trim() })
       .then((updatedUserData) => {
-        console.log("updatedUserAvatarData", updatedUserData);
         setCurrentUser((prev) => ({ ...prev, ...updatedUserData }));
         closeAllPopups();
         showMessage({
@@ -178,7 +173,6 @@ function App() {
   };
 
   function handleAddPlaceSubmit(name, url) {
-    console.log("handleAddPlaceSubmit / создание новой карточки");
     if (!name.trim() || !url.trim()) return null;
     setIsLoading(true);
     api
@@ -201,8 +195,8 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((user) => user._id === currentUser._id);
-
+    const isLiked = card.likes.some((userId) => userId === currentUser._id);
+    console.log('isLiked', isLiked);
     api
       .changeLikePlaceStatus(card._id, isLiked)
       .then((newCard) => {
@@ -258,9 +252,7 @@ function App() {
 
     authApi
       .auth({ email, password })
-      .then((resData) => {
-        console.log(resData.token);
-        localStorage.setItem("token", resData.token);
+      .then(() => {
         setUserEmail(email);
         setLoggedIn(true);
         navigate(routes.main, { replace: true });
@@ -276,7 +268,6 @@ function App() {
   }
 
   function handleExit() {
-    // localStorage.removeItem("token");
     setLoggedIn(false);
     setCards([]);
     setIsOpenUserInfo(false);
@@ -284,14 +275,10 @@ function App() {
   }
 
   useEffect(() => {
-    console.log("App / useEffect / api (проверка токена)");
     checkToken();
   }, []);
 
   useEffect(() => {
-    console.log(
-      "App / useEffect / api (запрос данных пользователя и карточек)"
-    );
     if (loggedIn) {
       getAppData();
     }
