@@ -2,7 +2,6 @@ import { messageType } from '../../utils/constants';
 
 
 export default function MessagePopup({ message, type, isOpen }) {
-  console.log('MessagePopup');
 
   let style = 'message';
 

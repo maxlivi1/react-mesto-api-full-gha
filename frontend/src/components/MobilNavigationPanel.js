@@ -3,7 +3,6 @@ import UserEmail from "./UserEmail";
 import ExitButton from "./ExitButton";
 
 export default function MobilNavigationPanel({ isOpen, userEmail, onSignOut }) {
-  console.log("MobilNavigationPanel");
 
   const style = `navigation-panel navigation-panel_mobile ${
     isOpen ? "navigation-panel_visible" : ""

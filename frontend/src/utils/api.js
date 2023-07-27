@@ -21,8 +21,7 @@ class Api {
 
   getInitialPlaces() {
     return this._request(this._options.requestTo.places, {
-      headers: this._options.headers.base,
-      credentials: 'include',
+      headers: this._options.headers.base
     });
   }
 
@@ -43,8 +42,7 @@ class Api {
 
   getUser() {
     return this._request(this._options.requestTo.user, {
-      headers: this._options.headers.base,
-      credentials: 'include',
+      headers: this._options.headers.base
     });
   }
 

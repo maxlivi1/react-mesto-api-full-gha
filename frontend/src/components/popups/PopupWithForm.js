@@ -10,7 +10,6 @@ function PopupWithForm({
   onSubmit,
   children,
 }) {
-  console.log("PopupWithForm");
 
   const { closeAllPopups } = React.useContext(AppContext);
 

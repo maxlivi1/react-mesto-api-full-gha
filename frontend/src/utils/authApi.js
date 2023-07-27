@@ -37,7 +37,7 @@ class AuthApi {
 
   checkToken() {
     return this._request(this._options.requestTo.user, {
-      headers: this._options.headers.base,
+      headers: this._options.headers.base
     });
   }
 }

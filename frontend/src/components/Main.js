@@ -13,7 +13,6 @@ function Main({
   onCardLike,
   onCardDelete,
 }) {
-  console.log("Main");
 
   const currentUser = React.useContext(CurrentUserContext);
 

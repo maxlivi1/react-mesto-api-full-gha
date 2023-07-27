@@ -3,7 +3,6 @@ import { usePopupClose } from "../../hooks/usePopupClose";
 import { AppContext } from "../../contexts/AppContext";
 
 function ImagePopup({ placeCard }) {
-  console.log("ImagePopup");
 
   const { closeAllPopups } = React.useContext(AppContext);
 

@@ -82,8 +82,9 @@ function App() {
   };
 
   const getAppData = () => {
-    api.getInitialPlaces()
-      .then((placesData) => {
+    Promise.all([api.getUser(), api.getInitialPlaces()])
+      .then(([userData, placesData]) => {
+        setCurrentUser((prev) => ({ ...prev, ...userData }));
         setCards((prev) => [...prev, ...placesData]);
         showMessage({
           text: "Данные с сервера успешно загружены",
@@ -102,7 +103,6 @@ function App() {
     authApi
         .checkToken()
         .then((userData) => {
-          setCurrentUser((prev) => ({ ...prev, ...userData }));
           setUserEmail(userData.email);
           setLoggedIn(true);
           navigate(routes.main, { replace: true });
@@ -196,7 +196,6 @@ function App() {
 
   function handleCardLike(card) {
     const isLiked = card.likes.some((userId) => userId === currentUser._id);
-    console.log('isLiked', isLiked);
     api
       .changeLikePlaceStatus(card._id, isLiked)
       .then((newCard) => {
@@ -237,8 +236,7 @@ function App() {
         setIsErrorTooltip(false);
         setIsTooltipOpen(true);
       })
-      .catch((resError) => {
-        console.log(resError.status, resError.statusText);
+      .catch(() => {
         setIsTooltipOpen(true);
         setIsErrorTooltip(true);
       })

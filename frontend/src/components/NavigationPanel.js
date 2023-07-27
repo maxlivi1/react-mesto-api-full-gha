@@ -8,7 +8,6 @@ import UserEmail from "./UserEmail";
 import ExitButton from "./ExitButton";
 
 export default function NavigationPanel({ userEmail, onSignOut }) {
-  console.log("NavigationPanel");
   const [block, setBlock] = useState(null);
   const navigate = useNavigate();
   let location = useLocation();
@@ -24,10 +23,8 @@ export default function NavigationPanel({ userEmail, onSignOut }) {
   const getDesiredBlock = () => {
     if (location.pathname === routes.entrance) {
       setBlock(<RegistrationButton onClick={goToRegistration} />);
-      console.log("getDesiredBlock", location.pathname);
     } else if (location.pathname === routes.registration) {
       setBlock(<EntranceButton onClick={goToAuth} />);
-      console.log("getDesiredBlock", location.pathname);
     } else if (location.pathname === routes.main) {
       setBlock(
         <>
@@ -39,7 +36,6 @@ export default function NavigationPanel({ userEmail, onSignOut }) {
   };
 
   useEffect(() => {
-    console.log("NavigationPanel / useEffect - изменение location");
     getDesiredBlock();
   }, [location]);
 

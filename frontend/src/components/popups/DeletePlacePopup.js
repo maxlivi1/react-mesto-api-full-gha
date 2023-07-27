@@ -3,7 +3,6 @@ import { usePopupClose } from "../../hooks/usePopupClose";
 import PopupWithForm from "./PopupWithForm";
 
 function DeletePlacePopup({ isOpen, onDelete }) {
-  console.log("DeletePlacePopup");
 
   usePopupClose(isOpen);
 

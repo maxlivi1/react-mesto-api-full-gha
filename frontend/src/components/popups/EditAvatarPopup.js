@@ -3,7 +3,6 @@ import PopupWithForm from "./PopupWithForm";
 import { AppContext } from "../../contexts/AppContext";
 
 export default function EditAvatarPopup({ isOpen, onUpdateUserAvatar }) {
-  console.log("EditAvatarPopup");
   const { isLoading } = React.useContext(AppContext);
 
   const avatar = useRef();
@@ -16,9 +15,7 @@ export default function EditAvatarPopup({ isOpen, onUpdateUserAvatar }) {
   }
 
   useEffect(() => {
-    console.log("EditAvatarPopup / useEffect / очистка поля аватара");
     if(!isOpen) {
-      console.log("Поле добавления аватара очищено!");
       avatar.current.value = '';
     }
   }, [isOpen])

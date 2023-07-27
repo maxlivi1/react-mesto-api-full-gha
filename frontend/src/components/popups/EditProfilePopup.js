@@ -5,7 +5,6 @@ import PopupWithForm from "./PopupWithForm";
 import { useForm } from "../../hooks/useForm";
 
 export default function EditProfilePopup({ isOpen, onUpdateUser }) {
-  console.log("EditProfilePopup");
 
   const { isLoading } = React.useContext(AppContext);
 
@@ -25,7 +24,6 @@ export default function EditProfilePopup({ isOpen, onUpdateUser }) {
   }
 
   useEffect(() => {
-    console.log("EditProfilePopup / useEffect / (currentUser, isOpen)");
     if (isOpen) {
       setValues({
         ...values,

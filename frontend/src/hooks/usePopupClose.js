@@ -20,12 +20,10 @@ export function usePopupClose(isOpen) {
 
     document.addEventListener("keydown", handleEscape);
     document.addEventListener("mousedown", handleOverlay);
-    console.log("EventListener - установлены");
 
     return () => {
       document.removeEventListener("keydown", handleEscape);
       document.removeEventListener("mousedown", handleOverlay);
-      console.log("EventListener - удалены");
     };
   }, [isOpen, closeAllPopups]);
 }

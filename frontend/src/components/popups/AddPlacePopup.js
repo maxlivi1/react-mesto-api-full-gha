@@ -4,7 +4,6 @@ import { useForm } from "../../hooks/useForm";
 import { AppContext } from "../../contexts/AppContext";
 
 export default function AddPlacePopup({ isOpen, onAddPlace }) {
-  console.log("AddPlacePopup");
 
   const { isLoading } = React.useContext(AppContext);
 
@@ -19,9 +18,7 @@ export default function AddPlacePopup({ isOpen, onAddPlace }) {
   }
 
   useEffect(() => {
-    console.log("AddPlacePopup / useEffect / очистка полей формы");
     if (!isOpen) {
-      console.log("Поля добавления карточки очищены!");
       setValues({ ...values, name: "", url: "" });
     }
   }, [isOpen]);
