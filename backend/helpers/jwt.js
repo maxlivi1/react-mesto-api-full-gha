@@ -13,7 +13,6 @@ const isAuthorized = (token) => jwt.verify(token, SECRET_STRING, (err, payload) 
 });
 const getPayload = (token) => jwt.verify(token, SECRET_STRING, (err, payload) => {
   if (err) return null;
-  // console.log('getPayload', payload);
   return payload;
 });
 

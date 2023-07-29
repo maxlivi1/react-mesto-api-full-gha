@@ -24,10 +24,12 @@ export const apiOptions = {
   },
   baseUrl: {
     base: "https://api.maxlivi.students.nomoredomains.xyz",
+    // base: "http://localhost:3001",
   },
   requestTo: {
     registration: "/signup",
     auth: "/signin",
+    logout: "/logout",
     user: "/users/me",
     userAvatar: "/users/me/avatar",
     places: "/cards",

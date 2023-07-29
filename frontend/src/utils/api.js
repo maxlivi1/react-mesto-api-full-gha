@@ -35,6 +35,12 @@ class Api {
     });
   }
 
+  logout() {
+    return this._request(this._options.requestTo.logout, {
+      headers: this._options.headers.base,
+    });
+  }
+
   checkToken() {
     return this._request(this._options.requestTo.user, {
       headers: this._options.headers.base

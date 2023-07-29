@@ -265,10 +265,16 @@ function App() {
   }
 
   function handleExit() {
-    setLoggedIn(false);
-    setCards([]);
-    setIsOpenUserInfo(false);
-    navigate(routes.entrance, { replace: true });
+    api.logout()
+    .then(() => {
+      setLoggedIn(false);
+      setCards([]);
+      setIsOpenUserInfo(false);
+      navigate(routes.entrance, { replace: true });
+    })
+    .catch((resError) => {
+      console.log(resError.status, resError.statusText);
+    });
   }
 
   useEffect(() => {

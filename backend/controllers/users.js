@@ -64,6 +64,15 @@ const login = (req, res, next) => {
     .catch(next);
 };
 
+const logout = (req, res, next) => {
+  try {
+    res.clearCookie('jwt');
+    res.send({ message: 'Пользователь разлогинен.' });
+  } catch (error) {
+    next(error);
+  }
+};
+
 const getUser = (req, res, next) => {
   const { userId } = req.params;
 
@@ -138,4 +147,5 @@ module.exports = {
   updateUserProfile,
   updateUserAvatar,
   login,
+  logout,
 };

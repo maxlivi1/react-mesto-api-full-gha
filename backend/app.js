@@ -10,7 +10,7 @@ const cors = require('cors');
 const userRouter = require('./routes/users');
 const cardRouter = require('./routes/cards');
 const notFoundPageRouter = require('./routes/notFoundPage');
-const { login, registration } = require('./controllers/users');
+const { login, registration, logout } = require('./controllers/users');
 const { auth } = require('./middlewares/auth');
 const { errorHandler } = require('./middlewares/errorHandler');
 const { URL_PATTERN } = require('./utils/constants');
@@ -42,6 +42,7 @@ app.use(requestLogger);
 app.use(cors({
   origin: ['http://localhost:3000', 'https://maxlivi.students.nomoredomains.xyz'],
   credentials: true,
+  maxAge: 120,
 }));
 
 app.get('/crash-test', () => {
@@ -65,6 +66,7 @@ app.post('/signup', celebrate({
     avatar: Joi.string().pattern(URL_PATTERN),
   }),
 }), registration);
+app.get('/logout', logout);
 
 app.use('/users', auth, userRouter);
 app.use('/cards', auth, cardRouter);
