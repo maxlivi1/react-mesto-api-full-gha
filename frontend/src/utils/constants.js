@@ -21,13 +21,9 @@ export const apiOptions = {
     base: {
       "Content-Type": "application/json",
     },
-    registration: {
-      "Content-Type": "application/json",
-    },
   },
   baseUrl: {
-    base: "http://localhost:3001",
-    auth: "http://localhost:3001",
+    base: "https://api.maxlivi.students.nomoredomains.xyz",
   },
   requestTo: {
     registration: "/signup",

@@ -16,7 +16,6 @@ import Login from "./Login";
 import Register from "./Register";
 import { messageType as typeOfMessage, routes } from "../utils/constants";
 import InfoTooltip from "./popups/InfoTooltip";
-import { authApi } from "../utils/authApi";
 import DeletePlacePopup from "./popups/DeletePlacePopup";
 import MobilNavigationPanel from "./MobilNavigationPanel";
 
@@ -100,7 +99,7 @@ function App() {
   };
 
   const checkToken = () => {
-    authApi
+    api
         .checkToken()
         .then((userData) => {
           setUserEmail(userData.email);
@@ -229,7 +228,7 @@ function App() {
   function handleRegistrationClick({ email, password }) {
     setIsSubmitDisable(true);
 
-    authApi
+    api
       .register({ email, password })
       .then(() => {
         navigate(routes.entrance, { replace: true });
@@ -248,7 +247,7 @@ function App() {
   function handleAuthClick({ email, password }) {
     setIsSubmitDisable(true);
 
-    authApi
+    api
       .auth({ email, password })
       .then(() => {
         setUserEmail(email);

@@ -19,6 +19,28 @@ class Api {
     );
   }
 
+  register({ email, password }) {
+    return this._request(this._options.requestTo.registration, {
+      method: "POST",
+      headers: this._options.headers.base,
+      body: JSON.stringify({ password, email }),
+    });
+  }
+
+  auth({ email, password }) {
+    return this._request(this._options.requestTo.auth, {
+      method: "POST",
+      headers: this._options.headers.base,
+      body: JSON.stringify({ password, email }),
+    });
+  }
+
+  checkToken() {
+    return this._request(this._options.requestTo.user, {
+      headers: this._options.headers.base
+    });
+  }
+
   getInitialPlaces() {
     return this._request(this._options.requestTo.places, {
       headers: this._options.headers.base
