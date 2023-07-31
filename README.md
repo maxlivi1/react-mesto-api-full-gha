@@ -6,7 +6,7 @@
 
 ## Ссылки на проект
 
-IP-адрес 158.160.110.91
+IP 158.160.110.91
 
 Frontend https://maxlivi.students.nomoredomains.xyz
 
