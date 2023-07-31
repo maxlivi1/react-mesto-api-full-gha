@@ -254,8 +254,7 @@ function App() {
         setLoggedIn(true);
         navigate(routes.main, { replace: true });
       })
-      .catch((resError) => {
-        console.log(resError.status, resError.statusText);
+      .catch(() => {
         setIsTooltipOpen(true);
         setIsErrorTooltip(true);
       })

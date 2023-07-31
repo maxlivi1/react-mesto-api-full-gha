@@ -1,6 +1,6 @@
 const notFoundPageRouter = require('express').Router();
-const sendNotFoundPageError = require('../controllers/notFoundPage');
+const getNotFoundPageError = require('../controllers/notFoundPage');
 
-notFoundPageRouter.use('/', sendNotFoundPageError);
+notFoundPageRouter.use('/', getNotFoundPageError);
 
 module.exports = notFoundPageRouter;

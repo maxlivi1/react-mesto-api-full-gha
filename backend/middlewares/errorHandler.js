@@ -1,23 +1,19 @@
-const { sendError } = require('../errors/sendError');
-const { STATUS_CODES, ERRORS } = require('../utils/constants');
+const AuthError = require('../errors/AuthError');
+const ForbiddenError = require('../errors/ForbiddenError');
+const NotFoundError = require('../errors/NotFoundError');
+const RegistrationError = require('../errors/RegistrationError');
+const RequestError = require('../errors/RequestError');
+const { STATUS_CODES } = require('../utils/constants');
 
 const errorHandler = (err, req, res, next) => {
-  const { statusCode = 500 } = err;
+  const { code = STATUS_CODES.INTERNAL_SERVER_ERROR } = err;
 
-  if (err.code === 11000) {
-    res.status(STATUS_CODES.BAD_REGISTRATION_ERROR)
-      .send({ message: ERRORS.BAD_REGISTRATION_ERROR.message });
+  if (err instanceof AuthError || err instanceof ForbiddenError || err instanceof NotFoundError
+     || err instanceof RegistrationError || err instanceof RequestError) {
+    res.status(err.code).send({ message: err.message });
     return;
   }
-  if (err.code === STATUS_CODES.BAD_LOGIN_ERROR || STATUS_CODES.BAD_REGISTRATION_ERROR
-    || STATUS_CODES.BAD_REQUEST_ERROR || STATUS_CODES.NOT_FOUND_ERROR
-    || STATUS_CODES.FORBIDDEN_ERROR || STATUS_CODES.INTERNAL_SERVER_ERROR) {
-    sendError(err, res);
-    return;
-  }
-  if (statusCode === 500) {
-    res.status(statusCode).send({ message: ERRORS.INTERNAL_SERVER_ERROR.message });
-  }
+  res.status(code).send({ message: 'Что-то пошло не так. Ошибка сервера.' });
   next();
 };
 

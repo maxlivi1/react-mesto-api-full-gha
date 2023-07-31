@@ -24,6 +24,8 @@ mongoose.connect(DB_URL, {
   useNewUrlParser: true,
 });
 
+app.use(requestLogger);
+
 app.use(limiter);
 app.use(cookieParser());
 app.use(bodyParser.json());
@@ -36,8 +38,6 @@ app.use(
     xPoweredBy: false,
   }),
 );
-
-app.use(requestLogger);
 
 app.use(cors({
   origin: ['http://localhost:3000', 'https://maxlivi.students.nomoredomains.xyz'],
@@ -54,7 +54,7 @@ app.get('/crash-test', () => {
 app.post('/signin', celebrate({
   body: Joi.object().keys({
     email: Joi.string().required().email(),
-    password: Joi.string().required().min(6).max(30),
+    password: Joi.string().required().min(5).max(100),
   }),
 }), login);
 app.post('/signup', celebrate({
@@ -66,12 +66,10 @@ app.post('/signup', celebrate({
     avatar: Joi.string().pattern(URL_PATTERN),
   }),
 }), registration);
-app.get('/logout', logout);
-
+app.get('/logout', auth, logout);
 app.use('/users', auth, userRouter);
 app.use('/cards', auth, cardRouter);
-
-app.use('*', notFoundPageRouter);
+app.use('*', auth, notFoundPageRouter);
 
 app.use(errorLogger);
 app.use(errors());

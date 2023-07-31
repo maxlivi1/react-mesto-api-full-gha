@@ -1,12 +1,7 @@
-const AppError = require('../errors/AppError');
-const { ERRORS, STATUS_CODES } = require('../utils/constants');
+const NotFoundError = require('../errors/NotFoundError');
 
-const sendNotFoundPageError = (req, res, next) => {
-  try {
-    throw AppError(ERRORS.NOT_FOUND_PAGE_ERROR.name, STATUS_CODES.NOT_FOUND_ERROR);
-  } catch (err) {
-    next(err);
-  }
+const getNotFoundPageError = (req, res, next) => {
+  next(new NotFoundError('Страница по запрашиваемому адресу не существует'));
 };
 
-module.exports = sendNotFoundPageError;
+module.exports = getNotFoundPageError;

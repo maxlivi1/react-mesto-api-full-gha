@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
-const AppError = require('../errors/AppError');
-const { ERRORS, STATUS_CODES } = require('../utils/constants');
+const { STATUS_CODES } = require('../utils/constants');
 const { getJwtToken } = require('../helpers/jwt');
+const RegistrationError = require('../errors/RegistrationError');
+const RequestError = require('../errors/RequestError');
+const AuthError = require('../errors/AuthError');
+const NotFoundError = require('../errors/NotFoundError');
 
 const registration = (req, res, next) => {
   const {
@@ -23,29 +26,28 @@ const registration = (req, res, next) => {
         avatar: user.avatar,
       }))
     .catch((err) => {
+      if (err.code === 11000) {
+        next(new RegistrationError('Пользователь с таким email уже зарегистрирован'));
+        return;
+      }
       if (err instanceof mongoose.Error.ValidationError) {
-        // console.log(err.message);
-        throw AppError(ERRORS.BAD_USER_REQUEST_ERROR.name, STATUS_CODES.BAD_REQUEST_ERROR);
+        next(new RequestError('Переданы некорректные данные при создании пользователя'));
+        return;
       }
       next(err);
-    })
-    .catch(next);
+    });
 };
 
 const login = (req, res, next) => {
   const { email, password } = req.body;
-  if (!email || !password) {
-    next(AppError(ERRORS.BAD_LOGIN_ERROR.name, STATUS_CODES.BAD_LOGIN_ERROR));
-    return;
-  }
   User.findOne({ email }).select('+password')
     .then((user) => {
-      if (!user) throw AppError(ERRORS.BAD_LOGIN_ERROR.name, STATUS_CODES.BAD_LOGIN_ERROR);
+      if (!user) throw new AuthError('Неверно указан логин или пароль');
 
       bcrypt.compare(password, user.password, (err, isValid) => {
         try {
           if (!isValid || err) {
-            throw AppError(ERRORS.BAD_LOGIN_ERROR.name, STATUS_CODES.BAD_LOGIN_ERROR);
+            throw AuthError('Неверно указан логин или пароль');
           }
           const token = getJwtToken(user._id);
           res
@@ -81,28 +83,28 @@ const getUser = (req, res, next) => {
   const { userId } = req.params;
 
   User.findById(userId)
-    .orFail(AppError(ERRORS.NOT_FOUND_USER_ERROR.name, STATUS_CODES.NOT_FOUND_ERROR))
+    .orFail(new NotFoundError('Пользователь по указанному id не найден'))
     .then((user) => res.send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
-        throw AppError(ERRORS.BAD_USER_REQUEST_ERROR.name, STATUS_CODES.BAD_REQUEST_ERROR);
+        next(new RequestError('Переданы некорректные данные пользователя'));
+        return;
       }
       next(err);
-    })
-    .catch(next);
+    });
 };
 
 const getUserInfo = (req, res, next) => {
   User.findById(req.user._id)
-    .orFail(AppError(ERRORS.NOT_FOUND_USER_ERROR.name, STATUS_CODES.NOT_FOUND_ERROR))
+    .orFail(new NotFoundError('Пользователь по указанному id не найден'))
     .then((user) => res.send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError) {
-        throw AppError(ERRORS.BAD_USER_REQUEST_ERROR.name, STATUS_CODES.BAD_REQUEST_ERROR);
+        next(new RequestError('Переданы некорректные данные пользователя'));
+        return;
       }
       next(err);
-    })
-    .catch(next);
+    });
 };
 
 const getUsers = (req, res, next) => {
@@ -115,32 +117,32 @@ const updateUserProfile = (req, res, next) => {
   const { name, about } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { name, about }, { new: true, runValidators: true })
-    .orFail(AppError(ERRORS.NOT_FOUND_USER_ERROR.name, STATUS_CODES.NOT_FOUND_ERROR))
+    .orFail(new NotFoundError('Пользователь по указанному id не найден'))
     .then((user) => res.send(user))
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError
         || err instanceof mongoose.Error.ValidationError) {
-        throw AppError(ERRORS.BAD_USER_PROFILE_REQUEST_ERROR.name, STATUS_CODES.BAD_REQUEST_ERROR);
+        next(new RequestError('Переданы некорректные данные при обновлении профиля'));
+        return;
       }
       next(err);
-    })
-    .catch(next);
+    });
 };
 
 const updateUserAvatar = (req, res, next) => {
   const { avatar } = req.body;
 
   User.findByIdAndUpdate(req.user._id, { avatar }, { new: true, runValidators: true })
-    .orFail(AppError(ERRORS.NOT_FOUND_USER_ERROR.name, STATUS_CODES.NOT_FOUND_ERROR))
+    .orFail(new NotFoundError('Пользователь по указанному id не найден'))
     .then((user) => res.send({ avatar: user.avatar }))
     .catch((err) => {
       if (err instanceof mongoose.Error.CastError
         || err instanceof mongoose.Error.ValidationError) {
-        throw AppError(ERRORS.BAD_USER_AVATAR_REQUEST_ERROR.name, STATUS_CODES.BAD_REQUEST_ERROR);
+        next(new RequestError('Переданы некорректные данные при обновлении аватара'));
+        return;
       }
       next(err);
-    })
-    .catch(next);
+    });
 };
 
 module.exports = {
