@@ -24,7 +24,6 @@ export const apiOptions = {
   },
   baseUrl: {
     base: "https://api.maxlivi.students.nomoredomains.xyz",
-    // base: "http://localhost:3001",
   },
   requestTo: {
     registration: "/signup",

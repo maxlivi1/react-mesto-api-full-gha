@@ -4,7 +4,7 @@ class RegistrationError extends Error {
   constructor(message) {
     super(message);
     this.name = 'RegistrationError';
-    this.code = STATUS_CODES.BAD_REGISTRATION_ERROR;
+    this.statusCode = STATUS_CODES.BAD_REGISTRATION_ERROR;
   }
 }
 
