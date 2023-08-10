@@ -47,7 +47,7 @@ const login = (req, res, next) => {
       bcrypt.compare(password, user.password, (err, isValid) => {
         try {
           if (!isValid || err) {
-            throw AuthError('Неверно указан логин или пароль');
+            throw new AuthError('Неверно указан логин или пароль');
           }
           const token = getJwtToken(user._id);
           res
